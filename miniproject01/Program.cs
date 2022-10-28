@@ -1,9 +1,4 @@
-﻿using System.Diagnostics;
-using System.Reflection.PortableExecutable;
-using System.Runtime.CompilerServices;
-using System.Xml.Linq;
-
-internal class Program
+﻿internal class Program
 {
     class Student
     {
@@ -37,7 +32,7 @@ internal class Program
         public void setGrade(char newGrade)
         {
             this.studGrade = newGrade;
-            Console.WriteLine("Grade has Successfully be changed to {0}", newGrade);
+            Console.WriteLine("Grade has Successfully been changed to {0}", newGrade);
         }
 
         // Set the courses
@@ -94,8 +89,11 @@ internal class Program
         int val1;
         string firstVal;
 
-        Console.WriteLine("Would you like to view student data '0' or change student data '1' or exit '2'?");
+        Console.WriteLine("---------------------------------------------");
+        Console.WriteLine("Would you like to view");
+        Console.WriteLine("0: View Student Data, 1: Change Student Data, 2: EXIT");
         firstVal = Console.ReadLine();
+        
         val1 = Convert.ToInt16(firstVal);
 
         switch (val1)
@@ -108,13 +106,15 @@ internal class Program
                 break;
             case 2:
                 Console.WriteLine("Thanks for using my program!");
-                break;
+                return true;
         }
         return true;
     }
 
+    // Once you have gone through this you will return back to viewOrChange
     static void viewStudentData(Student test)
     {
+        Console.WriteLine("---------------------------------------------");
         Console.WriteLine("You are now inside viewStudentData");
         Console.WriteLine("Would you like to view");
         Console.WriteLine("0: ID, 1: Name, 2: DOB, 3: Grade, 4: Courses");
@@ -125,26 +125,32 @@ internal class Program
         switch (val1)
         {
             case 0:
-                Console.WriteLine("Your ID is {0}",test.getID());
+                Console.WriteLine("Your ID is {0}", test.getID());
+                viewOrChange(test);
                 break;
             case 1:
                 Console.WriteLine("Your name is {0}", test.getName());
+                viewOrChange(test);
                 break;
             case 2:
                 Console.WriteLine("Your DOB is {0}", test.getDOB());
+                viewOrChange(test);
                 break;
             case 3:
                 Console.WriteLine("Your grade is {0}", test.getGrade());
+                viewOrChange(test);
                 break;
             case 4:
                 Console.WriteLine("Here are your courses");
                 test.getCoursesofStudent();
+                viewOrChange(test);
                 break;
         }
     }
 
     static void changeStudentData(Student test)
     {
+        Console.WriteLine("---------------------------------------------");
         Console.WriteLine("You are now inside changeStudentData");
         Console.WriteLine("Would you like to change");
         Console.WriteLine("0: DOB, 1: Grades, 2: Courses");
@@ -158,42 +164,48 @@ internal class Program
                 Console.WriteLine("Input a new DOB");
                 string newDOB = Console.ReadLine();
                 test.setDOB(newDOB);
+                viewOrChange(test);
                 break;
             case 1:
                 Console.WriteLine("Input a letter char for an updated grade");
                 string newGradeSTR = Console.ReadLine();
                 char newGrade = Convert.ToChar(newGradeSTR);
                 test.setGrade(newGrade);
+                viewOrChange(test);
                 break;
             case 2:
                 Console.WriteLine("Input a course you would like to implement");
                 Console.WriteLine("0: Band, 1: Math, 2: Science, 3: History");
                 string courseNumStr = Console.ReadLine();
                 int courseNum = Convert.ToInt16(courseNumStr);
-                string[] newCourses = {"", "", "", ""};
+                string[] newCourses = { "", "", "", "" };
 
                 // Nested switch case for choosing what class to add to courses
-                switch(courseNum)
+                switch (courseNum)
                 {
                     case 0:
                         newCourses[0] = "Band";
                         test.courses = newCourses;
                         Console.WriteLine("Band has been added to your courses!");
+                        viewOrChange(test);
                         break;
                     case 1:
                         newCourses[1] = "Math";
                         test.courses = newCourses;
                         Console.WriteLine("Math has been added to your courses!");
+                        viewOrChange(test);
                         break;
                     case 2:
                         newCourses[2] = "Science";
                         test.courses = newCourses;
                         Console.WriteLine("Science has been added to your courses!");
+                        viewOrChange(test);
                         break;
                     case 3:
                         newCourses[3] = "History";
                         test.courses = newCourses;
                         Console.WriteLine("History has been added to you courses!");
+                        viewOrChange(test);
                         break;
                 }
                 break;
@@ -207,12 +219,12 @@ internal class Program
         Student test = new Student(01, "Jack", "04/12/1956", 'B');
         Console.WriteLine($"My student ID is {test.getID()}, My name is {test.getName()}, My DOB is {test.getDOB()}, and my grade is {test.getGrade()}");
         Console.WriteLine($"There is {test.getStudentNum()} student");
-        
+
 
         bool done = false;
 
         // Actual application portion for user to input/update data
-        while(!done)
+        while (!done)
         {
             done = viewOrChange(test);
         }
