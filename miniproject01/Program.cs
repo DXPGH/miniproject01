@@ -1,4 +1,7 @@
-﻿using System.Reflection.PortableExecutable;
+﻿using System.Diagnostics;
+using System.Reflection.PortableExecutable;
+using System.Runtime.CompilerServices;
+using System.Xml.Linq;
 
 internal class Program
 {
@@ -8,7 +11,7 @@ internal class Program
         private string studName;
         private string studDOB;
         private char studGrade;
-        private string[] courses = {"Band", "Math", "Science", "History"};
+        public string[] courses = { "Empty", "Empty", "Empty", "Empty" };
         private readonly int studentsNum;
 
         // Each student will have: name, DOB, ID, grade, courses
@@ -113,7 +116,8 @@ internal class Program
     static void viewStudentData(Student test)
     {
         Console.WriteLine("You are now inside viewStudentData");
-        Console.WriteLine("Would you like to view id '0', name '1', DOB '2', grade '3', courses '4'");
+        Console.WriteLine("Would you like to view");
+        Console.WriteLine("0: ID, 1: Name, 2: DOB, 3: Grade, 4: Courses");
         int val1;
         string value = Console.ReadLine();
         val1 = Convert.ToInt16(value);
@@ -124,12 +128,17 @@ internal class Program
                 Console.WriteLine("Your ID is {0}",test.getID());
                 break;
             case 1:
-                test.getName();
+                Console.WriteLine("Your name is {0}", test.getName());
                 break;
-            case 2: 
-                test.getDOB();
+            case 2:
+                Console.WriteLine("Your DOB is {0}", test.getDOB());
                 break;
             case 3:
+                Console.WriteLine("Your grade is {0}", test.getGrade());
+                break;
+            case 4:
+                Console.WriteLine("Here are your courses");
+                test.getCoursesofStudent();
                 break;
         }
     }
@@ -137,6 +146,58 @@ internal class Program
     static void changeStudentData(Student test)
     {
         Console.WriteLine("You are now inside changeStudentData");
+        Console.WriteLine("Would you like to change");
+        Console.WriteLine("0: DOB, 1: Grades, 2: Courses");
+        int val1;
+        string value = Console.ReadLine();
+        val1 = Convert.ToInt16(value);
+
+        switch (val1)
+        {
+            case 0:
+                Console.WriteLine("Input a new DOB");
+                string newDOB = Console.ReadLine();
+                test.setDOB(newDOB);
+                break;
+            case 1:
+                Console.WriteLine("Input a letter char for an updated grade");
+                string newGradeSTR = Console.ReadLine();
+                char newGrade = Convert.ToChar(newGradeSTR);
+                test.setGrade(newGrade);
+                break;
+            case 2:
+                Console.WriteLine("Input a course you would like to implement");
+                Console.WriteLine("0: Band, 1: Math, 2: Science, 3: History");
+                string courseNumStr = Console.ReadLine();
+                int courseNum = Convert.ToInt16(courseNumStr);
+                string[] newCourses = {"", "", "", ""};
+
+                // Nested switch case for choosing what class to add to courses
+                switch(courseNum)
+                {
+                    case 0:
+                        newCourses[0] = "Band";
+                        test.courses = newCourses;
+                        Console.WriteLine("Band has been added to your courses!");
+                        break;
+                    case 1:
+                        newCourses[1] = "Math";
+                        test.courses = newCourses;
+                        Console.WriteLine("Math has been added to your courses!");
+                        break;
+                    case 2:
+                        newCourses[2] = "Science";
+                        test.courses = newCourses;
+                        Console.WriteLine("Science has been added to your courses!");
+                        break;
+                    case 3:
+                        newCourses[3] = "History";
+                        test.courses = newCourses;
+                        Console.WriteLine("History has been added to you courses!");
+                        break;
+                }
+                break;
+        }
     }
 
     public static void Main(string[] args)
