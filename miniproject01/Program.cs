@@ -84,6 +84,7 @@
 
     }
 
+    // First Prompt
     static bool viewOrChange(Student test)
     {
         int val1;
@@ -148,6 +149,7 @@
         }
     }
 
+    // Once you have gone through this you will return back to viewOrChange
     static void changeStudentData(Student test)
     {
         Console.WriteLine("---------------------------------------------");
@@ -212,6 +214,7 @@
         }
     }
 
+
     public static void Main(string[] args)
     {
         // Test case
@@ -220,7 +223,7 @@
         Console.WriteLine($"My student ID is {test.getID()}, My name is {test.getName()}, My DOB is {test.getDOB()}, and my grade is {test.getGrade()}");
         Console.WriteLine($"There is {test.getStudentNum()} student");
 
-
+        // To check if they're done with they are done using the application
         bool done = false;
 
         // Actual application portion for user to input/update data
@@ -228,7 +231,6 @@
         {
             done = viewOrChange(test);
         }
-
         Console.ReadLine();
     }
 }
